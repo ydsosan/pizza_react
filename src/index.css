@@ -1,6 +1,8 @@
 header {
     height: 80vh;
     background: url('/src/assets/imgs/Header.jpg') no-repeat;
+    background-color: rgb(0,0,0,0.7);
+    background-blend-mode: overlay;
 }
 .Letras {
     padding: 20rem;
