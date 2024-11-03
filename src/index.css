@@ -1,0 +1,69 @@
+header {
+    height: 80vh;
+    background: url('/src/assets/imgs/Header.jpg') no-repeat;
+}
+.Letras {
+    padding: 20rem;
+}
+header h2, p {
+    color: white;
+    text-align: center;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #282c34;
+    color: white;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.links {
+    display: flex;
+    gap: 15px;
+    justify-content: flex-start;
+}
+
+.link {
+    cursor: pointer;
+}
+
+.total {
+    font-size: 18px;
+    margin-left: auto;
+}
+
+.footer-card {
+    display: flex;
+    justify-content: space-between;
+}
+
+.list-group-flush {
+    font-size: 30px;
+    text-align: center;
+}
+
+.text-card {
+    color: black !important;
+}
+
+.container {
+    display: flex;
+    gap: 100px;
+    align-items: center;
+    justify-content: center;
+    padding: 5rem;
+}
+
+.footer-text {
+    background-color: #282c34;
+    padding: 2rem;
+    color: white;
+    text-align: center;
+}
