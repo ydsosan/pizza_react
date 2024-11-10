@@ -1,4 +1,5 @@
 import React from 'react';
+import Nav from 'react-bootstrap/Nav';
 
 const MyNavbar = () => {
     const total = 25000;
@@ -8,16 +9,16 @@ const MyNavbar = () => {
         <nav className="navbar">
             <div className="logo">Pizzeria Mamma Mia</div>
             <div className="links">
-                <span className="link">🍕 Home</span>
+                <Nav.Link href="#home" className="link">🍕 Home</Nav.Link>
                 {token ? (
                     <>
-                        <span className="link">🔓 Profile</span>
-                        <span className="link">🔒 Logout</span>
+                        <Nav.Link href="" className="link">🔓 Profile</Nav.Link>
+                        <Nav.Link href="" className="link">🔒 Logout</Nav.Link>
                     </>
                 ) : (
                     <>
-                        <span className="link">🔐 Login</span>
-                        <span className="link">🔐 Register</span>
+                        <Nav.Link href="/Login" className="link">🔐 Login</Nav.Link>
+                        <Nav.Link href="/Register" className="link">🔐 Register</Nav.Link>
                     </>
                 )}
             </div>

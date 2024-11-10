@@ -69,3 +69,13 @@ header h2, p {
     color: white;
     text-align: center;
 }
+
+
+.Form {
+    padding-left: 30rem;
+    padding-right: 30rem;
+}
+
+h2 {
+    text-align: center;
+}
