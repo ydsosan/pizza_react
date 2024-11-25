@@ -21,18 +21,24 @@
 
 
 import React from 'react';
-import Cart from './components/Cart';
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer"; 
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Home from './components/Home';
+import Pizza from './components/pizzas'
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 const App = () => {
   return (
     <div>
       <Navbar/>
-      <Cart />
+      <Home/>
+      <Pizza/>
       <Footer/>
     </div>
   );
 };
 
 export default App;
+
