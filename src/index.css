@@ -98,3 +98,21 @@ header h2, p {
 h2 {
     text-align: center;
 }
+
+.cart-item {
+    padding-left: 10rem;
+}
+
+.compra {
+    align-items: center;
+    align-content: center;
+    text-align: center;
+}
+
+.user {
+    display: flex;
+    gap: 5rem;
+}
+.user p {
+    color: black;
+}
