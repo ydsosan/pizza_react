@@ -14,7 +14,7 @@ const Cart = () => {
         return newQuantity > 0 ? { ...pizza, quantity: newQuantity } : null;
       }
       return pizza;
-    }).filter(Boolean)); // Eliminamos las pizzas con cantidad 0
+    }).filter(Boolean)); 
   };
   const calculateTotal = () => {
     return cart.reduce((total, pizza) => total + pizza.price * pizza.quantity, 0);

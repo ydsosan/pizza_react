@@ -5,7 +5,7 @@ const Profile = () => {
   const email = "usuario@ejemplo.com"; // Email estático por ahora
 
   const handleLogout = () => {
-    console.log("Cerrar sesión"); // Lógica de cierre de sesión se implementará más adelante
+    console.log("Cerrar sesión"); 
     alert("Sesión cerrada (pendiente de implementación).");
   };
 
