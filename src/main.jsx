@@ -1,7 +1,10 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
+import { useState } from 'react'
+import 'bootstrap/dist/css/bootstrap.min.css';
 import App from './App.jsx'
+import { CartProvider } from "./context/CartContext.jsx";
 import { createBrowserRouter, RouterProvider} from "react-router-dom";
 import Register from "./pages/Register.jsx";
 import Login from "./pages/Login.jsx";
@@ -49,6 +52,6 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <CartProvider><RouterProvider router={router} /></CartProvider>
   </StrictMode>,
 )
