@@ -13,45 +13,32 @@ import Home from './pages/Home.jsx';
 import Pizza from './pages/pizzas.jsx';
 import Profile from './pages/Profile.jsx';
 import NotFound from './pages/NotFound.jsx';
+import { UserProvider } from "./context/UserContext.jsx";
+import ProtectedRoute from "./components/ProtectedRouted.jsx";
 
 const router = createBrowserRouter([
+  { path: "/", element: <Home /> },
+  { path: "/register", element: <Register /> },
+  { path: "/login", element: <Login /> },
+  { path: "/cart", element: <Cart /> },
   {
-    path: "/",
-    element: <Home />,
+    path: "/profile",
+    element: (
+      <ProtectedRoute>
+        <Profile />
+      </ProtectedRoute>
+    ),
   },
-  {
-    path: "/Register",
-    element: <Register />,
-  },
-
-  {
-    path: "/Login",
-    element: <Login />,
-  },
-
-  {
-    path: "/Cart",
-    element: <Cart />,
-  },
-
-  {
-    path: "/pizza/p001",
-    element: <Pizza />,
-  },
-
-  {
-    path: "/Profile",
-    element: <Profile />,
-  },
-
-  {
-    path: "*",
-    element: <NotFound />,
-  }
+  { path: "/pizza/:id", element: <Pizza /> },
+  { path: "*", element: <NotFound /> },
 ]);
 
-createRoot(document.getElementById('root')).render(
+createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <CartProvider><RouterProvider router={router} /></CartProvider>
-  </StrictMode>,
-)
+    <UserProvider>
+      <CartProvider>
+        <RouterProvider router={router} />
+      </CartProvider>
+    </UserProvider>
+  </StrictMode>
+);

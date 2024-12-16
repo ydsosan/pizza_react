@@ -2,8 +2,12 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
+import { Navigate } from "react-router-dom";
+import { useUserContext } from "../context/UserContext.jsx";
 
 const Register = () => {
+    const { token } = useUserContext();
+    if (token) return <Navigate to="/" />;
     const [validated, setValidated] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');

@@ -52,8 +52,10 @@
 import React from "react";
 import { useCart } from "../context/CartContext";
 import { Card, Button } from "react-bootstrap";
+import { useUserContext } from "../context/UserContext.jsx";
 
 const Cart = () => {
+  const { token } = useUserContext();
   const { cart, updateCartQuantity, calculateTotal, removeFromCart } = useCart(); 
   console.log("Contenido del carrito:", cart);
   return (
@@ -110,7 +112,7 @@ const Cart = () => {
       )}
       <div className="mt-4">
         <h3>Total de la compra: ${calculateTotal().toLocaleString()}</h3>
-        <Button variant="success">Pagar</Button>
+        <Button disabled={!token} variant="success">Pagar</Button>
       </div>
     </div>
   );
