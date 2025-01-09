@@ -84,10 +84,21 @@ header h2, p {
 
 
 .Form {
-    padding-left: 30rem;
-    padding-right: 30rem;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    padding: 5rem;
+    background-color: rgb(255, 255, 255);
+}
+.box-form {
+    border: black 2px solid;
+    padding: 1rem;
 }
 
+.mb-3 {
+    padding-left: 3rem;
+    padding-right: 3rem;
+}
 h2 {
     text-align: center;
 }
@@ -108,4 +119,20 @@ h2 {
 }
 .user p {
     color: black;
+}
+
+.pform p {
+    color: black !important;
+}
+
+.card-bodycart {
+    display: flex;
+    flex-direction: column;
+}
+
+.card-body button {
+    size: 5px;
+}
+.Botoncardpizza {
+    display: flex;
 }

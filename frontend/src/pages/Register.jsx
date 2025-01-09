@@ -7,7 +7,9 @@ import { useUserContext } from "../context/UserContext.jsx";
 
 const Register = () => {
     const { token } = useUserContext();
+
     if (token) return <Navigate to="/" />;
+    
     const [validated, setValidated] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -25,51 +27,49 @@ const Register = () => {
         // Validaciones adicionales para la contraseña
         if (password.length < 6) {
             setErrorMessage('La contraseña debe tener al menos 6 caracteres');
-            setSuccessMessage(''); // Limpiar el mensaje de éxito si hay error
+            setSuccessMessage(''); 
             event.preventDefault();
             return;
         }
 
         if (password !== confirmPassword) {
             setErrorMessage('Las contraseñas no coinciden');
-            setSuccessMessage(''); // Limpiar el mensaje de éxito si hay error
+            setSuccessMessage(''); 
             event.preventDefault();
             return;
         }
 
-        // Si todo está correcto, mostrar mensaje de éxito y limpiar errores
+        
         setValidated(true);
         setErrorMessage('');
-        setSuccessMessage('¡Formulario enviado correctamente!'); // Mensaje de éxito
+        setSuccessMessage('¡Formulario enviado correctamente!'); 
 
        
     };
 
     return ( 
         <div className='Form'>
+            <div className='box-form'>
             <h2>Registro</h2>
             <Form noValidate validated={validated} onSubmit={handleSubmit}>
-                {/* Campo de Email */}
                 <Form.Group className="mb-3" controlId="formBasicEmail">
-                    <Form.Label>Email address</Form.Label>
+                    <Form.Label>Email</Form.Label>
                     <Form.Control
                         required
                         type="email"
-                        placeholder="Enter email"
+                        placeholder="Email"
                         onChange={(e) => setEmail(e.target.value)}
                         value={email}
                     />
                     <Form.Control.Feedback>Está correcto</Form.Control.Feedback>
                     <Form.Control.Feedback type="invalid">Por favor escriba su correo electrónico.</Form.Control.Feedback>
                 </Form.Group>
-
-                {/* Campo de Password */}
                 <Form.Group className="mb-3" controlId="formBasicPassword">
-                    <Form.Label>Password</Form.Label>
+                    <Form.Label>Contraseña</Form.Label>
                     <Form.Control
                         required
                         type="password"
-                        placeholder="Enter password"
+                        placeholder="Contraseña"
                         onChange={(e) => setPassword(e.target.value)}
                         value={password}
                     />
@@ -77,13 +77,12 @@ const Register = () => {
                     <Form.Control.Feedback type="invalid">Por favor escriba su password.</Form.Control.Feedback>
                 </Form.Group>
 
-                {/* Campo de Confirmar Password */}
                 <Form.Group className="mb-3" controlId="formBasicConfirmPassword">
-                    <Form.Label>Confirme Password</Form.Label>
+                    <Form.Label>Confirme Contraseña</Form.Label>
                     <Form.Control
                         required
                         type="password"
-                        placeholder="Enter password"
+                        placeholder="Confirme Contraseña"
                         onChange={(e) => setConfirmPassword(e.target.value)}
                         value={confirmPassword}
                     />
@@ -91,14 +90,13 @@ const Register = () => {
                     <Form.Control.Feedback type="invalid">Por favor confirme su password.</Form.Control.Feedback>
                 </Form.Group>
 
-                {/* Mostrar mensaje de error si existe */}
                 {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
-
-                {/* Mostrar mensaje de éxito si el formulario es válido */}
                 {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
 
-                <Button type="submit">Registrar</Button>
+                <Button type="submit">Sign Up</Button>
             </Form>
+            </div>
+
         </div>
     );
 };

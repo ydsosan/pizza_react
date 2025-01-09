@@ -1,14 +1,25 @@
-import React, { createContext, useState, useContext } from "react";
+import React, { createContext, useState, useContext, useEffect } from "react";
 
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
-  const [token, setToken] = useState(true); // Simulación de token
+  const [token, setToken] = useState(null); 
 
-  const logout = () => setToken(false); // Método logout
+  
+  useEffect(() => {
+    const storedToken = localStorage.getItem("token");
+    if (storedToken) {
+      setToken(storedToken);
+    }
+  }, []);
+
+  const logout = () => {
+    setToken(null); // Limpia token en el contexto
+    localStorage.removeItem("token"); // Elimina token del almacenamiento
+  };
 
   return (
-    <UserContext.Provider value={{ token, logout }}>
+    <UserContext.Provider value={{ token, setToken, logout }}>
       {children}
     </UserContext.Provider>
   );

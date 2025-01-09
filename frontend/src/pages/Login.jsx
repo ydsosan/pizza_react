@@ -1,81 +1,93 @@
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import Row from 'react-bootstrap/Row';
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useUserContext } from "../context/UserContext.jsx";
+import { Link } from 'react-router-dom'
 
 const Login = () => {
-    const { token } = useUserContext();
+    const { setToken } = useUserContext(); 
     const [validated, setValidated] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
-    const [successMessage, setSuccessMessage] = useState('');
-    if (token) return <Navigate to="/" />;
+    const navigate = useNavigate(); 
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         const form = event.currentTarget;
-        if (form.checkValidity() === false) {
+        if (form.checkValidity() === true) {
             event.preventDefault();
-            event.stopPropagation();
+            try {
+                const response = await fetch("http://localhost:5000/api/auth/login", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        email,
+                        password,
+                    }),
+                });
+
+                const data = await response.json();
+
+                if (data?.error) {
+                    setErrorMessage(data.error);
+                } else {
+                    // Guarda el token y redirige
+                    localStorage.setItem("token", data.token);
+                    setToken(data.token); 
+                    navigate("/profile"); // Redirige al perfil
+                }
+            } catch (error) {
+                setErrorMessage("Ocurrió un error, por favor intenta nuevamente.");
+            }
         }
 
-        // Validaciones adicionales para la contraseña
         if (password.length < 6) {
             setErrorMessage('La contraseña debe tener al menos 6 caracteres');
-            setSuccessMessage(''); // Limpiar el mensaje de éxito si hay error
             event.preventDefault();
             return;
         }
-
-        // Si todo está correcto, mostrar mensaje de éxito y limpiar errores
-        setValidated(true);
-        setErrorMessage('');
-        setSuccessMessage('¡Formulario enviado correctamente!'); // Mensaje de éxito
-
-       
     };
 
     return (
         <div className='Form'>
-            <Form noValidate validated={validated} onSubmit={handleSubmit}>
-                {/* Campo de Email */}
-                <Form.Group className="mb-3" controlId="formBasicEmail">
-                    <Form.Label>Email address</Form.Label>
-                    <Form.Control
-                        required
-                        type="email"
-                        placeholder="Enter email"
-                        onChange={(e) => setEmail(e.target.value)}
-                        value={email}
-                    />
-                    <Form.Control.Feedback>Está correcto</Form.Control.Feedback>
-                    <Form.Control.Feedback type="invalid">Por favor escriba su correo electrónico.</Form.Control.Feedback>
-                </Form.Group>
+            <div className='box-form'>
+                <h1>Sign in</h1>
+                <Form noValidate validated={validated} onSubmit={handleSubmit}>
+                    {/* Email */}
+                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                        <Form.Label>Email</Form.Label>
+                        <Form.Control
+                            required
+                            type="email"
+                            placeholder="Email"
+                            onChange={(e) => setEmail(e.target.value)}
+                            value={email}
+                        />
+                        <Form.Control.Feedback>Está correcto</Form.Control.Feedback>
+                        <Form.Control.Feedback type="invalid">Por favor escriba su correo electrónico.</Form.Control.Feedback>
+                    </Form.Group>
 
-                {/* Campo de Password */}
-                <Form.Group className="mb-3" controlId="formBasicPassword">
-                    <Form.Label>Password</Form.Label>
-                    <Form.Control
-                        required
-                        type="password"
-                        placeholder="Enter password"
-                        onChange={(e) => setPassword(e.target.value)}
-                        value={password}
-                    />
-                    <Form.Control.Feedback>Está correcto</Form.Control.Feedback>
-                    <Form.Control.Feedback type="invalid">Por favor escriba su password.</Form.Control.Feedback>
-                </Form.Group>
-
-                {/* Mostrar mensaje de error si existe */}
-                {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
-
-                {/* Mostrar mensaje de éxito si el formulario es válido */}
-                {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
-
-                <Button type="submit">Login</Button>
-            </Form>
+                    {/* Password */}
+                    <Form.Group className="mb-3" controlId="formBasicPassword">
+                        <Form.Label>Contraseña</Form.Label>
+                        <Form.Control
+                            required
+                            type="password"
+                            placeholder="Contraseña"
+                            onChange={(e) => setPassword(e.target.value)}
+                            value={password}
+                        />
+                        <Form.Control.Feedback>Está correcto</Form.Control.Feedback>
+                        <Form.Control.Feedback type="invalid">Por favor escriba su password.</Form.Control.Feedback>
+                    </Form.Group>
+                    {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
+                    <div className='boton-form'><Button className='button-form' type="submit">Sign in</Button></div>
+                    <div className='pform'><p>¿No tienes cuenta?</p><Link to='/register'>Sign up</Link></div>
+                </Form>
+            </div>
         </div>
     );
 };
